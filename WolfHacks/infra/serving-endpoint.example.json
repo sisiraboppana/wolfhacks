@@ -1,0 +1,11 @@
+{
+  "name": "pacepilot-agent",
+  "config": {
+    "served_entities": [{
+      "entity_name": "workspace.pacepilot.wearable_agent",
+      "entity_version": "REPLACE_WITH_REGISTERED_VERSION",
+      "workload_size": "Small",
+      "scale_to_zero_enabled": true
+    }]
+  }
+}

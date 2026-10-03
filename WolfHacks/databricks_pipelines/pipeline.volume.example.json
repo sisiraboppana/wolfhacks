@@ -1,0 +1,13 @@
+{
+  "name": "pacepilot-volume-demo",
+  "catalog": "workspace",
+  "schema": "pacepilot",
+  "development": true,
+  "continuous": false,
+  "serverless": true,
+  "libraries": [{"file": {"path": "/Workspace/REPLACE_WITH_PROJECT_PATH/databricks_pipelines/pipeline.py"}}],
+  "configuration": {
+    "wearable.source": "volume",
+    "wearable.volume_path": "/Volumes/workspace/pacepilot/telemetry/incoming"
+  }
+}

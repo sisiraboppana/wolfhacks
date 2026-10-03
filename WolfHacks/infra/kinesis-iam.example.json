@@ -1,0 +1,10 @@
+{
+  "writer_policy": {
+    "Version": "2012-10-17",
+    "Statement": [{"Effect": "Allow", "Action": ["kinesis:PutRecord", "kinesis:PutRecords"], "Resource": "arn:aws:kinesis:us-east-1:REPLACE_ACCOUNT_ID:stream/telemetry-hr-stream"}]
+  },
+  "reader_policy": {
+    "Version": "2012-10-17",
+    "Statement": [{"Effect": "Allow", "Action": ["kinesis:GetRecords", "kinesis:GetShardIterator", "kinesis:DescribeStream", "kinesis:DescribeStreamSummary", "kinesis:ListShards"], "Resource": "arn:aws:kinesis:us-east-1:REPLACE_ACCOUNT_ID:stream/telemetry-hr-stream"}]
+  }
+}

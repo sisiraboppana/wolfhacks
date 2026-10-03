@@ -1,0 +1,6 @@
+# Optional cloud packaging dependencies; install in Databricks development compute.
+mlflow>=3,<4
+databricks-sdk>=0.40,<1
+pandas>=2,<3
+pydantic>=2.10,<3
+httpx>=0.28,<1
