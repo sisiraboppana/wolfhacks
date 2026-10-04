@@ -1,4 +1,83 @@
 {
+  "$defs": {
+    "RecordingContext": {
+      "additionalProperties": false,
+      "properties": {
+        "dataset": {
+          "enum": [
+            "hrv_acc",
+            "ppg_dalia"
+          ],
+          "title": "Dataset",
+          "type": "string"
+        },
+        "subject": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Subject",
+          "type": "string"
+        },
+        "hr_method": {
+          "enum": [
+            "rr_derived",
+            "ecg_rpeaks_derived",
+            "windowed_ecg_ground_truth"
+          ],
+          "title": "Hr Method",
+          "type": "string"
+        },
+        "original_offset_seconds": {
+          "minimum": 0,
+          "title": "Original Offset Seconds",
+          "type": "number"
+        },
+        "activity_label": {
+          "anyOf": [
+            {
+              "enum": [
+                "transition",
+                "sitting",
+                "stairs",
+                "table_soccer",
+                "cycling",
+                "driving",
+                "lunch",
+                "walking",
+                "working"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Activity Label"
+        },
+        "hr_window_seconds": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Hr Window Seconds"
+        }
+      },
+      "required": [
+        "dataset",
+        "subject",
+        "hr_method",
+        "original_offset_seconds"
+      ],
+      "title": "RecordingContext",
+      "type": "object"
+    }
+  },
   "additionalProperties": false,
   "properties": {
     "schema_version": {
@@ -72,6 +151,17 @@
       ],
       "default": null,
       "title": "Sensor Contact"
+    },
+    "recording": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RecordingContext"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     }
   },
   "required": [

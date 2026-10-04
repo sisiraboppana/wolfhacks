@@ -1,14 +1,21 @@
 """Build a small upload bundle and Databricks registration notebook."""
 import json
+import argparse
 from pathlib import Path
 from zipfile import ZipFile
 
 root = Path(__file__).resolve().parents[1]
+parser = argparse.ArgumentParser()
+parser.add_argument('--generation', choices=['2','3'], default='3')
+generation = parser.parse_args().generation
 output = root / 'output' / 'serving'
 output.mkdir(parents=True, exist_ok=True)
-with ZipFile(output / 'pacepilot-agent-v2-code.zip', 'w') as archive:
+with ZipFile(output / f'pacepilot-agent-v{generation}-code.zip', 'w') as archive:
     for name in ['agent/__init__.py', 'agent/serving_model.py', 'agent/session_tools.py', 'agent/llm_agent.py', 'shared/__init__.py', 'shared/schemas.py', 'shared/metrics.py']:
         archive.write(root / name, name)
+    if generation == '3':
+        rows = (root/'data/real/ppg-dalia-transitions/events.jsonl').read_text(encoding='utf-8').splitlines()
+        archive.writestr('real_sample.json',json.dumps([json.loads(row) for row in rows[:600]]))
 
 cells = []
 def cell(kind, source):
@@ -34,6 +41,8 @@ if not bundle.exists():
     raise FileNotFoundError('Upload pacepilot-agent-v2-code.zip to the telemetry volume root first')
 code_root = Path(tempfile.mkdtemp(prefix='pacepilot-agent-'))
 allowed = {'agent/__init__.py','agent/serving_model.py','agent/session_tools.py','agent/llm_agent.py','shared/__init__.py','shared/schemas.py','shared/metrics.py'}
+if bundle.name == 'pacepilot-agent-v3-code.zip':
+    allowed.add('real_sample.json')
 with zipfile.ZipFile(bundle) as archive:
     if set(archive.namelist()) != allowed:
         raise ValueError('Unexpected archive contents; use the generated project bundle')
@@ -86,6 +95,9 @@ start = datetime(2026,10,3,12,0,tzinfo=timezone.utc)
 events = [dict(events[0], sequence=i, timestamp=(start+timedelta(seconds=i)).isoformat(),
                heart_rate=110 if i < 60 else 140, rr_intervals_ms=[545,550] if i < 60 else [425,435])
           for i in range(180)]
+if (code_root/'real_sample.json').exists():
+    events = json.loads((code_root/'real_sample.json').read_text())
+    print('Live test uses real PPG-DaLiA S10 recording, with dataset-provided activity annotations.')
 example = pd.DataFrame([{'prompt':'Did heart rate briefly spike or stay elevated? What should I check next?',
                          'telemetry_json':json.dumps(events)}])
 result = json.loads(model.predict(None, example)[0]['response_json'])
@@ -101,5 +113,6 @@ Never set PACEPILOT_PACKAGING_OFFLINE on the endpoint.
 Request format stays `{"dataframe_records":[{"prompt":"Summarize my session","telemetry_json":"[...]"}]}`.
 ''')
 notebook = {'cells':cells,'metadata':{'kernelspec':{'display_name':'Python 3','language':'python','name':'python3'}},'nbformat':4,'nbformat_minor':5}
-(root / 'notebooks' / 'register_agent_v2.ipynb').write_text(json.dumps(notebook,indent=2)+'\n',encoding='utf-8')
-print('Prepared notebooks/register_agent_v2.ipynb and output/serving/pacepilot-agent-v2-code.zip')
+serialized = json.dumps(notebook,indent=2).replace('agent-v2','agent-v'+generation).replace('agent v2','agent v'+generation)
+(root / 'notebooks' / f'register_agent_v{generation}.ipynb').write_text(serialized+'\n',encoding='utf-8')
+print(f'Prepared notebooks/register_agent_v{generation}.ipynb and output/serving/pacepilot-agent-v{generation}-code.zip')

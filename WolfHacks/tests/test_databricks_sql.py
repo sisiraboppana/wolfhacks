@@ -47,3 +47,27 @@ def test_gold_order_numbers_and_bound_identity(monkeypatch):
     assert rows[0]['window_start'] == 'earlier'
     assert rows[1]['avg_hr'] == 140.2
     assert rows[0]['notification_count'] == 39
+
+def test_selected_replay_session_is_bound_not_interpolated(monkeypatch):
+    from agent import databricks_sql
+    async def fake_execute(statement, **kwargs):
+        assert 'session_id = :session_id' in statement
+        assert "s'quoted" not in statement
+        assert kwargs['parameters'][1]['value']=="s'quoted"
+        return []
+    monkeypatch.setattr(databricks_sql,'execute',fake_execute)
+    assert asyncio.run(databricks_sql.get_gold(session_id="s'quoted"))==[]
+
+def test_silver_forwards_optional_recording_context(monkeypatch):
+    from agent import databricks_sql
+    from kinesis_producer.mock import MockGenerator
+    event=MockGenerator(session_id='s').next().model_dump(mode='json')
+    event.pop('recording',None)
+    context=dict(dataset='ppg_dalia',subject='S10',hr_method='ecg_rpeaks_derived',
+        original_offset_seconds=1000,activity_label='stairs')
+    async def fake_execute(statement, **kwargs):
+        assert 'struct(*)' in statement
+        return [dict(event_json=json.dumps(event),recording_json=json.dumps(context))]
+    monkeypatch.setattr(databricks_sql,'execute',fake_execute)
+    rows=asyncio.run(databricks_sql.get_silver_session('s'))
+    assert rows[0]['recording']['activity_label']=='stairs'

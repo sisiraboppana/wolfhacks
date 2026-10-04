@@ -1,12 +1,15 @@
 # PacePilot
 
 Initial wearable streaming platform, synthesized from `geminiPlan.pdf` and
-`chatgptPlan.pdf`. All demo telemetry is synthetic; no dataset is required.
+`chatgptPlan.pdf`. Supports seeded mock telemetry and real HRV-ACC / PPG-DaLiA recorded-data replay.
+
+For real recordings, deployment updates, and paced replay into the existing Databricks volume, follow [the real-data guide](docs/real-data.md). Adapters retain recorded RR or derive it from the authors' corrected ECG R-peaks; they never manufacture RR from averaged BPM.
 
 ## Layout
 
 - `frontend/`: React, TypeScript, Recharts, runtime Zod validation, SSE dashboard
 - `kinesis_producer/`: seeded Polar H10 mock notifications; stdout/file/API/Kinesis sinks
+- `datasets/`: real-recording adapters, provenance, and paced API/volume replay
 - `shared/`: Pydantic event schema, exported JSON schema, ordered HRV helpers
 - `databricks_pipelines/`: DLT Bronze/Silver/Gold scaffold, Unity Catalog SQL, config template
 - `agent/`: mock FastAPI gateway, Model Serving transport, full-agent packaging scaffold

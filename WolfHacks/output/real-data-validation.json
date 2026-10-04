@@ -1,0 +1,552 @@
+{
+  "hrv-acc-first": {
+    "prepared_events": 1135,
+    "analyzed_slice_events": 600,
+    "tools": {
+      "summarize_hr_trend": {
+        "status": "ok",
+        "duration_seconds": 311.849,
+        "valid_notifications": 600,
+        "excluded_notifications": 0,
+        "first_minute_mean_bpm": 113.88,
+        "last_minute_mean_bpm": 110.28,
+        "first_reading_bpm": 115,
+        "last_reading_bpm": 106,
+        "mean_hr_change_percent": -3.16,
+        "windows": [
+          {
+            "start_seconds": 0,
+            "mean_bpm": 113.88,
+            "notifications": 114
+          },
+          {
+            "start_seconds": 60,
+            "mean_bpm": 113.9,
+            "notifications": 114
+          },
+          {
+            "start_seconds": 120,
+            "mean_bpm": 120.2,
+            "notifications": 120
+          },
+          {
+            "start_seconds": 180,
+            "mean_bpm": 118.42,
+            "notifications": 118
+          },
+          {
+            "start_seconds": 240,
+            "mean_bpm": 113.63,
+            "notifications": 113
+          },
+          {
+            "start_seconds": 300,
+            "mean_bpm": 103.9,
+            "notifications": 21
+          }
+        ],
+        "workload_comparison": "unavailable",
+        "comparison": "First and last recorded minutes of the supplied slice; not a resting or post-warm-up baseline.",
+        "data_sources": [
+          "replay"
+        ],
+        "datasets": [
+          "hrv_acc"
+        ],
+        "hr_methods": [
+          "rr_derived"
+        ],
+        "activity_annotations": [],
+        "activity_interpretation": "Dataset annotations at observed times; no motion classifier or speed/power measurement. Correlation does not establish cause."
+      },
+      "detect_sustained_changes": {
+        "status": "ok",
+        "reference_mean_bpm": 112.39,
+        "threshold_bpm": 123.63,
+        "demo_threshold_percent": 10,
+        "required_duration_seconds": 30,
+        "sustained_change": false,
+        "episodes": [
+          {
+            "start_seconds": 130.711,
+            "duration_seconds": 0.483,
+            "peak_bpm": 125,
+            "sustained": false
+          },
+          {
+            "start_seconds": 132.16,
+            "duration_seconds": 3.852,
+            "peak_bpm": 126,
+            "sustained": false
+          },
+          {
+            "start_seconds": 138.931,
+            "duration_seconds": 1.933,
+            "peak_bpm": 124,
+            "sustained": false
+          },
+          {
+            "start_seconds": 141.834,
+            "duration_seconds": 4.813,
+            "peak_bpm": 126,
+            "sustained": false
+          },
+          {
+            "start_seconds": 155.106,
+            "duration_seconds": 0.966,
+            "peak_bpm": 124,
+            "sustained": false
+          },
+          {
+            "start_seconds": 165.11,
+            "duration_seconds": 0.484,
+            "peak_bpm": 124,
+            "sustained": false
+          },
+          {
+            "start_seconds": 186.41,
+            "duration_seconds": 2.396,
+            "peak_bpm": 127,
+            "sustained": false
+          },
+          {
+            "start_seconds": 218.302,
+            "duration_seconds": 3.342,
+            "peak_bpm": 127,
+            "sustained": false
+          },
+          {
+            "start_seconds": 231.97,
+            "duration_seconds": 0.0,
+            "peak_bpm": 124,
+            "sustained": false
+          },
+          {
+            "start_seconds": 232.946,
+            "duration_seconds": 0.97,
+            "peak_bpm": 124,
+            "sustained": false
+          },
+          {
+            "start_seconds": 234.888,
+            "duration_seconds": 0.0,
+            "peak_bpm": 124,
+            "sustained": false
+          },
+          {
+            "start_seconds": 246.201,
+            "duration_seconds": 0.0,
+            "peak_bpm": 124,
+            "sustained": false
+          },
+          {
+            "start_seconds": 252.745,
+            "duration_seconds": 4.774,
+            "peak_bpm": 127,
+            "sustained": false
+          }
+        ],
+        "reference": "First 30 recorded seconds; not a physiological baseline.",
+        "interpretation": "Detects sustained HR rise only; workload, causes and recovery are unknown."
+      },
+      "inspect_rr_continuity": {
+        "metrics": {
+          "rmssd_ms": 8.98,
+          "sdnn_ms": 32.68,
+          "rr_count": 600
+        },
+        "sequence_or_time_gaps": 0,
+        "missing_rr_notifications": 0,
+        "bad_contact_notifications": 0,
+        "implausible_rr_notifications": 0,
+        "notification_count": 600,
+        "scope": "Latest continuous valid RR segment only; demo plausibility filter 250\u20132500 ms.",
+        "rr_availability": "recorded_rr_or_derived_from_recorded_ecg_peaks",
+        "limitations": "No artifact correction or stationary/resting validation. Changing HR can affect SDNN. Plausibility is not an ectopic-beat diagnosis or a validated quality score."
+      }
+    }
+  },
+  "ppg-dalia-transitions": {
+    "prepared_events": 946,
+    "analyzed_slice_events": 600,
+    "tools": {
+      "summarize_hr_trend": {
+        "status": "ok",
+        "duration_seconds": 312.495714,
+        "valid_notifications": 595,
+        "excluded_notifications": 5,
+        "first_minute_mean_bpm": 115.03,
+        "last_minute_mean_bpm": 127.39,
+        "first_reading_bpm": 103,
+        "last_reading_bpm": 92,
+        "mean_hr_change_percent": 10.75,
+        "windows": [
+          {
+            "start_seconds": 0,
+            "mean_bpm": 115.03,
+            "notifications": 115
+          },
+          {
+            "start_seconds": 60,
+            "mean_bpm": 124.17,
+            "notifications": 122
+          },
+          {
+            "start_seconds": 120,
+            "mean_bpm": 102.06,
+            "notifications": 100
+          },
+          {
+            "start_seconds": 180,
+            "mean_bpm": 112.1,
+            "notifications": 110
+          },
+          {
+            "start_seconds": 240,
+            "mean_bpm": 127.91,
+            "notifications": 123
+          },
+          {
+            "start_seconds": 300,
+            "mean_bpm": 120.48,
+            "notifications": 25
+          }
+        ],
+        "workload_comparison": "unavailable",
+        "comparison": "First and last recorded minutes of the supplied slice; not a resting or post-warm-up baseline.",
+        "data_sources": [
+          "replay"
+        ],
+        "datasets": [
+          "ppg_dalia"
+        ],
+        "hr_methods": [
+          "ecg_rpeaks_derived"
+        ],
+        "activity_annotations": [
+          {
+            "label": "stairs",
+            "first_observed_seconds": 0.0,
+            "last_observed_seconds": 312.496
+          }
+        ],
+        "activity_interpretation": "Dataset annotations at observed times; no motion classifier or speed/power measurement. Correlation does not establish cause."
+      },
+      "detect_sustained_changes": {
+        "status": "ok",
+        "reference_mean_bpm": 110.59,
+        "threshold_bpm": 121.65,
+        "demo_threshold_percent": 10,
+        "required_duration_seconds": 30,
+        "sustained_change": false,
+        "episodes": [
+          {
+            "start_seconds": 40.584285,
+            "duration_seconds": 0.0,
+            "peak_bpm": 122,
+            "sustained": false
+          },
+          {
+            "start_seconds": 43.065714,
+            "duration_seconds": 0.0,
+            "peak_bpm": 124,
+            "sustained": false
+          },
+          {
+            "start_seconds": 45.047142,
+            "duration_seconds": 5.277143,
+            "peak_bpm": 153,
+            "sustained": false
+          },
+          {
+            "start_seconds": 52.824285,
+            "duration_seconds": 4.294286,
+            "peak_bpm": 131,
+            "sustained": false
+          },
+          {
+            "start_seconds": 59.011428,
+            "duration_seconds": 0.914286,
+            "peak_bpm": 135,
+            "sustained": false
+          },
+          {
+            "start_seconds": 60.9,
+            "duration_seconds": 1.368571,
+            "peak_bpm": 144,
+            "sustained": false
+          },
+          {
+            "start_seconds": 63.245714,
+            "duration_seconds": 0.0,
+            "peak_bpm": 132,
+            "sustained": false
+          },
+          {
+            "start_seconds": 64.217142,
+            "duration_seconds": 18.248572,
+            "peak_bpm": 167,
+            "sustained": false
+          },
+          {
+            "start_seconds": 83.53,
+            "duration_seconds": 3.357142,
+            "peak_bpm": 126,
+            "sustained": false
+          },
+          {
+            "start_seconds": 87.847142,
+            "duration_seconds": 4.222858,
+            "peak_bpm": 183,
+            "sustained": false
+          },
+          {
+            "start_seconds": 93.217142,
+            "duration_seconds": 1.328572,
+            "peak_bpm": 165,
+            "sustained": false
+          },
+          {
+            "start_seconds": 96.074285,
+            "duration_seconds": 0.0,
+            "peak_bpm": 138,
+            "sustained": false
+          },
+          {
+            "start_seconds": 97.095714,
+            "duration_seconds": 2.238571,
+            "peak_bpm": 207,
+            "sustained": false
+          },
+          {
+            "start_seconds": 100.015714,
+            "duration_seconds": 1.47,
+            "peak_bpm": 136,
+            "sustained": false
+          },
+          {
+            "start_seconds": 108.018571,
+            "duration_seconds": 0.0,
+            "peak_bpm": 126,
+            "sustained": false
+          },
+          {
+            "start_seconds": 115.6,
+            "duration_seconds": 0.0,
+            "peak_bpm": 159,
+            "sustained": false
+          },
+          {
+            "start_seconds": 120.987142,
+            "duration_seconds": 0.0,
+            "peak_bpm": 128,
+            "sustained": false
+          },
+          {
+            "start_seconds": 122.587142,
+            "duration_seconds": 0.0,
+            "peak_bpm": 134,
+            "sustained": false
+          },
+          {
+            "start_seconds": 126.962857,
+            "duration_seconds": 0.465714,
+            "peak_bpm": 140,
+            "sustained": false
+          },
+          {
+            "start_seconds": 144.458571,
+            "duration_seconds": 0.0,
+            "peak_bpm": 187,
+            "sustained": false
+          },
+          {
+            "start_seconds": 165.661428,
+            "duration_seconds": 0.0,
+            "peak_bpm": 130,
+            "sustained": false
+          },
+          {
+            "start_seconds": 182.842857,
+            "duration_seconds": 0.0,
+            "peak_bpm": 128,
+            "sustained": false
+          },
+          {
+            "start_seconds": 196.09,
+            "duration_seconds": 0.0,
+            "peak_bpm": 142,
+            "sustained": false
+          },
+          {
+            "start_seconds": 198.97,
+            "duration_seconds": 0.0,
+            "peak_bpm": 123,
+            "sustained": false
+          },
+          {
+            "start_seconds": 214.517142,
+            "duration_seconds": 0.0,
+            "peak_bpm": 147,
+            "sustained": false
+          },
+          {
+            "start_seconds": 218.73,
+            "duration_seconds": 0.0,
+            "peak_bpm": 122,
+            "sustained": false
+          },
+          {
+            "start_seconds": 221.8,
+            "duration_seconds": 0.0,
+            "peak_bpm": 125,
+            "sustained": false
+          },
+          {
+            "start_seconds": 223.317142,
+            "duration_seconds": 0.0,
+            "peak_bpm": 131,
+            "sustained": false
+          },
+          {
+            "start_seconds": 233.357142,
+            "duration_seconds": 0.912858,
+            "peak_bpm": 143,
+            "sustained": false
+          },
+          {
+            "start_seconds": 234.774285,
+            "duration_seconds": 0.0,
+            "peak_bpm": 137,
+            "sustained": false
+          },
+          {
+            "start_seconds": 235.824285,
+            "duration_seconds": 1.954286,
+            "peak_bpm": 125,
+            "sustained": false
+          },
+          {
+            "start_seconds": 238.758571,
+            "duration_seconds": 2.401429,
+            "peak_bpm": 127,
+            "sustained": false
+          },
+          {
+            "start_seconds": 242.138571,
+            "duration_seconds": 5.03,
+            "peak_bpm": 213,
+            "sustained": false
+          },
+          {
+            "start_seconds": 248.225714,
+            "duration_seconds": 0.0,
+            "peak_bpm": 156,
+            "sustained": false
+          },
+          {
+            "start_seconds": 251.582857,
+            "duration_seconds": 0.46,
+            "peak_bpm": 130,
+            "sustained": false
+          },
+          {
+            "start_seconds": 253.872857,
+            "duration_seconds": 0.0,
+            "peak_bpm": 141,
+            "sustained": false
+          },
+          {
+            "start_seconds": 254.835714,
+            "duration_seconds": 0.464286,
+            "peak_bpm": 129,
+            "sustained": false
+          },
+          {
+            "start_seconds": 257.165714,
+            "duration_seconds": 2.784286,
+            "peak_bpm": 133,
+            "sustained": false
+          },
+          {
+            "start_seconds": 260.871428,
+            "duration_seconds": 0.0,
+            "peak_bpm": 145,
+            "sustained": false
+          },
+          {
+            "start_seconds": 264.584285,
+            "duration_seconds": 0.932857,
+            "peak_bpm": 135,
+            "sustained": false
+          },
+          {
+            "start_seconds": 266.441428,
+            "duration_seconds": 5.471429,
+            "peak_bpm": 145,
+            "sustained": false
+          },
+          {
+            "start_seconds": 272.81,
+            "duration_seconds": 16.187142,
+            "peak_bpm": 199,
+            "sustained": false
+          },
+          {
+            "start_seconds": 290.452857,
+            "duration_seconds": 0.444285,
+            "peak_bpm": 205,
+            "sustained": false
+          },
+          {
+            "start_seconds": 292.661428,
+            "duration_seconds": 2.732857,
+            "peak_bpm": 140,
+            "sustained": false
+          },
+          {
+            "start_seconds": 296.301428,
+            "duration_seconds": 1.835714,
+            "peak_bpm": 159,
+            "sustained": false
+          },
+          {
+            "start_seconds": 300.882857,
+            "duration_seconds": 0.0,
+            "peak_bpm": 140,
+            "sustained": false
+          },
+          {
+            "start_seconds": 301.848571,
+            "duration_seconds": 8.057143,
+            "peak_bpm": 129,
+            "sustained": false
+          },
+          {
+            "start_seconds": 311.844285,
+            "duration_seconds": 0.0,
+            "peak_bpm": 142,
+            "sustained": false
+          }
+        ],
+        "reference": "First 30 recorded seconds; not a physiological baseline.",
+        "interpretation": "Detects sustained HR rise only; workload, causes and recovery are unknown."
+      },
+      "inspect_rr_continuity": {
+        "metrics": {
+          "rmssd_ms": 156.0,
+          "sdnn_ms": 126.75,
+          "rr_count": 44
+        },
+        "sequence_or_time_gaps": 0,
+        "missing_rr_notifications": 0,
+        "bad_contact_notifications": 0,
+        "implausible_rr_notifications": 5,
+        "notification_count": 600,
+        "scope": "Latest continuous valid RR segment only; demo plausibility filter 250\u20132500 ms.",
+        "rr_availability": "recorded_rr_or_derived_from_recorded_ecg_peaks",
+        "limitations": "No artifact correction or stationary/resting validation. Changing HR can affect SDNN. Plausibility is not an ectopic-beat diagnosis or a validated quality score."
+      }
+    }
+  }
+}

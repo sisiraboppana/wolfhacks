@@ -16,7 +16,7 @@ def test_external_ingest_dedup_and_analysis(monkeypatch):
         response = client.post('/api/chat', json={'prompt':'summary','session_id':'test-session'})
         assert response.status_code == 200
         assert response.json()['mode'] == 'deterministic_preview'
-        assert '1 notifications' in response.json()['message']
+        assert '1 events' in response.json()['message']
         event['rr_intervals_ms'] = [-1]
         assert client.post('/api/telemetry', json=event).status_code == 422
 

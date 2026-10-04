@@ -1,1 +1,12 @@
-{"name":"pacepilot","private":true,"workspaces":["frontend"],"scripts":{"dev":"npm run dev --workspace frontend","build":"npm run build --workspace frontend"}}
+{
+  "name": "pacepilot",
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace frontend",
+    "build": "npm run build --workspace frontend",
+    "test:cloud": "tsc frontend/src/cloudSchemas.ts --module commonjs --target es2022 --outDir tmp/cloud-contract-tests --esModuleInterop --skipLibCheck --strict && node --test tests/cloud_contracts.cjs"
+  }
+}

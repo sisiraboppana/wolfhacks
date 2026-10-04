@@ -9,6 +9,8 @@ def normalize_events(payload):
     events = [TelemetryEvent.model_validate(item) for item in payload]
     if len({(e.user_id,e.session_id,e.device_id) for e in events}) != 1:
         raise ValueError('One user, session, and device per request')
+    if len({(e.recording.dataset,e.recording.subject,e.recording.hr_method) if e.recording else None for e in events}) != 1:
+        raise ValueError('One consistent recording dataset, subject, and derivation method per request')
     unique = {}
     for event in events:
         if event.sequence in unique and unique[event.sequence] != event:
@@ -36,13 +38,29 @@ def summarize_hr_trend(events):
     early = [e.heart_rate for e in good if (e.timestamp-start).total_seconds() < 60]
     late = [e.heart_rate for e in good if (end-e.timestamp).total_seconds() < 60]
     first,last = mean(early),mean(late)
+    context = [e for e in good if e.recording]
+    activities = []
+    for event in context:
+        label = event.recording.activity_label
+        if label is None:
+            continue
+        offset = round((event.timestamp-start).total_seconds(),3)
+        if activities and activities[-1]['label'] == label:
+            activities[-1]['last_observed_seconds'] = offset
+        else:
+            activities.append({'label':label,'first_observed_seconds':offset,'last_observed_seconds':offset})
     return {'status':'ok' if duration >= 120 else 'short_recording','duration_seconds':duration,
         'valid_notifications':len(good),'excluded_notifications':len(events)-len(good),
         'first_minute_mean_bpm':round(first,2),'last_minute_mean_bpm':round(last,2),
         'first_reading_bpm':good[0].heart_rate,'last_reading_bpm':good[-1].heart_rate,
         'mean_hr_change_percent':round(100*(last-first)/first,2) if duration >= 120 else None,
         'windows':summary,'workload_comparison':'unavailable',
-        'comparison':'First and last recorded minutes; not a resting or post-warm-up baseline.'}
+        'comparison':'First and last recorded minutes of the supplied slice; not a resting or post-warm-up baseline.',
+        'data_sources':sorted({e.source for e in events}),
+        'datasets':sorted({e.recording.dataset for e in context}),
+        'hr_methods':sorted({e.recording.hr_method for e in context}),
+        'activity_annotations':activities,
+        'activity_interpretation':'Dataset annotations at observed times; no motion classifier or speed/power measurement. Correlation does not establish cause.'}
 
 def detect_sustained_changes(events):
     good = usable(events)
@@ -104,7 +122,8 @@ def inspect_rr_continuity(events):
     return {'metrics':hrv(segment),'sequence_or_time_gaps':gaps,'missing_rr_notifications':missing,
         'bad_contact_notifications':bad_contact,'implausible_rr_notifications':implausible,'notification_count':len(events),
         'scope':'Latest continuous valid RR segment only; demo plausibility filter 250–2500 ms.',
-        'limitations':'No artifact correction or stationary/resting validation. Changing HR can affect SDNN.'}
+        'rr_availability':'not_provided_by_hr_window_adapter' if events and all(e.recording and e.recording.hr_method=='windowed_ecg_ground_truth' for e in events) else 'recorded_rr_or_derived_from_recorded_ecg_peaks',
+        'limitations':'No artifact correction or stationary/resting validation. Changing HR can affect SDNN. Plausibility is not an ectopic-beat diagnosis or a validated quality score.'}
 
 TOOL_FUNCTIONS = {'summarize_hr_trend':summarize_hr_trend,
     'detect_sustained_changes':detect_sustained_changes,'inspect_rr_continuity':inspect_rr_continuity}

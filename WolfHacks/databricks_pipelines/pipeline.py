@@ -11,6 +11,11 @@ schema = StructType([
     StructField('sequence', LongType()), StructField('timestamp', StringType()),
     StructField('heart_rate', IntegerType()), StructField('rr_intervals_ms', ArrayType(DoubleType())),
     StructField('source', StringType()), StructField('sensor_contact', BooleanType()),
+    StructField('recording', StructType([
+        StructField('dataset', StringType()), StructField('subject', StringType()),
+        StructField('hr_method', StringType()), StructField('original_offset_seconds', DoubleType()),
+        StructField('activity_label', StringType()), StructField('hr_window_seconds', DoubleType()),
+    ])),
 ])
 
 @dlt.table(name='wearable_bronze', comment='Preserve raw notification JSON and arrival metadata')
@@ -50,4 +55,4 @@ def gold():
 
 # Cloud HRV requires ordered beat reconstruction and continuity handling.
 # Do not flatten unordered collect_list arrays into RMSSD.
-# Historical baselines, Feature Store, and custom serving deployment are pending.
+# Historical baselines and Feature Store are not implemented.
